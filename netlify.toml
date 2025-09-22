@@ -1,0 +1,152 @@
+[build]
+  # 构建命令（静态网站无需构建）
+  command = "echo 'Static site - no build required'"
+  
+  # 发布目录（当前目录）
+  publish = "."
+  
+  # 忽略构建（因为是静态网站）
+  ignore = "exit 0"
+
+[build.environment]
+  # Node.js版本
+  NODE_VERSION = "18"
+  
+  # NPM版本
+  NPM_VERSION = "9"
+
+# 重定向规则
+[[redirects]]
+  # SPA路由支持
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin", "member", "guest"]}
+
+[[redirects]]
+  # 管理后台访问控制
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+[[redirects]]
+  # 登录页面
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  # API代理（如果需要）
+  from = "/api/*"
+  to = "https://api.vexrobotics.club/:splat"
+  status = 200
+  force = true
+
+# HTTP头部设置
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # 安全头部
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # 内容安全策略
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;"
+    
+    # 缓存控制
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # HTML文件缓存策略
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    # CSS文件缓存
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    # JavaScript文件缓存
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    # 图片文件缓存
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    # 图片文件缓存
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    # SVG文件缓存
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# 表单处理
+[forms]
+  # 联系表单
+  [forms.contact]
+    name = "contact"
+    action = "/thank-you"
+    
+  # 报名表单
+  [forms.registration]
+    name = "registration"
+    action = "/registration-success"
+
+# 函数配置（如果需要serverless函数）
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# 插件配置
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  
+  [plugins.inputs]
+    buildDir = "."
+    exclude = [
+      "/admin.html",
+      "/login.html"
+    ]
+
+[[plugins]]
+  package = "netlify-plugin-minify-html"
+  
+  [plugins.inputs]
+    contexts = ["production"]
+
+# 开发环境配置
+[dev]
+  command = "python3 -m http.server 8888"
+  port = 8888
+  publish = "."
+  autoLaunch = true
+
+# 上下文特定配置
+[context.production]
+  [context.production.environment]
+    NODE_ENV = "production"
+    SITE_URL = "https://vexrobotics.club"
+
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    NODE_ENV = "staging"
+    ROBOTS_NOINDEX = "true"
+
+[context.branch-deploy]
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+    ROBOTS_NOINDEX = "true"

@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apple-style global styles */
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-white dark:bg-apple-gray-900 text-apple-gray-900 dark:text-white transition-colors duration-300;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-6xl lg:text-7xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-5xl lg:text-6xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-4xl lg:text-5xl;
+  }
+}
+
+/* Apple-style components */
+@layer components {
+  .btn-primary {
+    @apply bg-apple-blue hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all duration-200 hover:scale-105 active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-apple-blue text-apple-blue hover:bg-apple-blue hover:text-white px-6 py-3 rounded-full font-medium transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-apple-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 dark:bg-apple-gray-800/80 backdrop-blur-md border border-white/20;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-apple-gray-100 dark:bg-apple-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-apple-gray-400 dark:bg-apple-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-apple-gray-500 dark:bg-apple-gray-500;
+}
+
+/* Selection styles */
+::selection {
+  @apply bg-apple-blue/20 text-apple-blue;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-apple-blue focus:ring-offset-2 dark:focus:ring-offset-apple-gray-900;
+}

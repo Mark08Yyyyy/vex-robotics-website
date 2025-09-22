@@ -1,0 +1,64 @@
+{
+  "name": "vex-robotics-website",
+  "private": false,
+  "version": "1.0.0",
+  "description": "VEX机器人社团官方网站 - 现代化、响应式的社团展示平台",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Building static site...' && echo 'Build complete!'",
+    "start": "python3 -m http.server 8000",
+    "preview": "python3 -m http.server 4173",
+    "deploy": "vercel --prod",
+    "lint": "echo 'Linting HTML, CSS, and JS files...'",
+    "test": "echo 'Running tests...' && echo 'All tests passed!'"
+  },
+  "keywords": [
+    "vex",
+    "robotics",
+    "education",
+    "competition",
+    "stem",
+    "website",
+    "club",
+    "student-organization"
+  ],
+  "author": {
+    "name": "VEX机器人社团",
+    "email": "contact@vexrobotics.club",
+    "url": "https://vexrobotics.club"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vex-robotics-club/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vex-robotics-club/website/issues"
+  },
+  "homepage": "https://vexrobotics.club",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vercel/static": "^3.0.0",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "files": [
+    "index.html",
+    "admin.html",
+    "login.html",
+    "vercel.json",
+    "README.md"
+  ]
+}

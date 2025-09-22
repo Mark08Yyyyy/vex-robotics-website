@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VEX机器人社团官方网站 - 探索科技，创造未来">
+    <meta name="keywords" content="VEX机器人,机器人社团,科技创新,编程,STEM教育">
+    <meta name="author" content="VEX机器人社团">
+    
+    <!-- Apple Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VEX机器人社团">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="VEX机器人社团">
+    <meta property="og:description" content="探索科技，创造未来 - VEX机器人社团官方网站">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vex-robotics.vercel.app">
+    
+    <title>VEX机器人社团 - 探索科技，创造未来</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'apple': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        'apple-blue': '#007AFF',
+                        'apple-gray': {
+                            50: '#F9FAFB',
+                            100: '#F3F4F6',
+                            200: '#E5E7EB',
+                            300: '#D1D5DB',
+                            400: '#9CA3AF',
+                            500: '#6B7280',
+                            600: '#4B5563',
+                            700: '#374151',
+                            800: '#1F2937',
+                            900: '#111827',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            transition: color 0.3s ease;
+        }
+        
+        .dark body {
+            color: #ffffff;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-primary {
+            @apply bg-apple-blue text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-blue-600 hover:scale-105 active:scale-95;
+        }
+        
+        .card {
+            @apply bg-white dark:bg-apple-gray-800 rounded-2xl p-6 shadow-lg border border-apple-gray-200 dark:border-apple-gray-700 transition-all duration-300;
+        }
+        
+        .section-padding {
+            @apply py-20 px-4 sm:px-6 lg:px-8;
+        }
+        
+        .container-max {
+            @apply max-w-7xl mx-auto;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        
+        /* Selection styles */
+        ::selection {
+            background-color: #007AFF;
+            color: white;
+        }
+        
+        /* Focus styles */
+        button:focus,
+        a:focus {
+            outline: 2px solid #007AFF;
+            outline-offset: 2px;
+        }
+        
+        /* Parallax effect */
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Enhanced hover effects */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .hover-lift:hover {
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-scale {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Stagger animation delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+        
+        /* Smooth transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass-effect transition-all duration-300">
+        <div class="container-max">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-apple-blue rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">VEX</span>
+                    </div>
+                    <span class="text-xl font-bold text-apple-gray-900 dark:text-white">机器人社团</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">首页</a>
+                    <a href="#about" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">关于我们</a>
+                    <a href="#activities" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">活动展示</a>
+                    <a href="#members" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">团队成员</a>
+                    <a href="#comments" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">留言板</a>
+                    <a href="#registration" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">活动报名</a>
+                    <a href="#resources" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">资源下载</a>
+                    <a href="#contact" class="nav-link text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue transition-colors">联系我们</a>
+                    <div id="user-menu" class="hidden">
+                        <span id="user-name" class="text-sm text-apple-gray-600 dark:text-apple-gray-300"></span>
+                        <button id="logout-btn" class="ml-2 text-sm text-red-600 hover:text-red-700">退出</button>
+                    </div>
+                    <a href="login.html" id="login-btn" class="bg-apple-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">登录</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-apple-gray-100 dark:bg-apple-gray-800 hover:bg-apple-gray-200 dark:hover:bg-apple-gray-700 transition-colors">
+                        <span id="theme-icon" class="text-xl">🌙</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-apple-gray-100 dark:bg-apple-gray-800">
+                        <span class="text-xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-apple-gray-900 border-t border-apple-gray-200 dark:border-apple-gray-700">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#home" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">首页</a>
+                <a href="#about" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">关于我们</a>
+                <a href="#activities" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">活动展示</a>
+                <a href="#members" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">团队成员</a>
+                <a href="#comments" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">留言板</a>
+                <a href="#registration" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">活动报名</a>
+                <a href="#resources" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">资源下载</a>
+                <a href="#contact" class="block py-2 text-apple-gray-700 dark:text-apple-gray-300 hover:text-apple-blue">联系我们</a>
+                <div id="mobile-user-menu" class="hidden border-t border-apple-gray-200 dark:border-apple-gray-700 pt-2 mt-2">
+                    <div class="flex items-center justify-between py-2">
+                        <span id="mobile-user-name" class="text-sm text-apple-gray-600 dark:text-apple-gray-300"></span>
+                        <button id="mobile-logout-btn" class="text-sm text-red-600 hover:text-red-700">退出</button>
+                    </div>
+                </div>
+                <a href="login.html" id="mobile-login-btn" class="block py-2 text-center bg-apple-blue text-white rounded-lg hover:bg-blue-600 transition-colors">登录</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden" style="background-image: url('./images/background.jpg') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important;">
+            <div class="container-max text-center relative z-10">
+                <div class="animate-fade-in">
+                    <h1 class="text-5xl md:text-7xl font-bold text-apple-gray-900 dark:text-white mb-6" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        探索科技
+                        <span class="block text-apple-gray-900 dark:text-white">创造未来</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-apple-gray-700 dark:text-white mb-8 max-w-3xl mx-auto" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                        加入VEX机器人社团，与志同道合的伙伴一起，在机器人的世界中释放创造力，用科技改变世界
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="btn-primary text-lg px-8 py-4">加入我们</button>
+                        <button class="bg-transparent border-2 border-apple-blue text-apple-blue dark:text-apple-blue px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:bg-apple-blue hover:text-white">
+                            了解更多
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-20 left-10 w-20 h-20 bg-apple-blue/20 rounded-full animate-float"></div>
+            <div class="absolute bottom-20 right-10 w-16 h-16 bg-purple-500/20 rounded-full animate-float" style="animation-delay: -2s;"></div>
+            <div class="absolute top-1/2 left-1/4 w-12 h-12 bg-green-500/20 rounded-full animate-float" style="animation-delay: -4s;"></div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="section-padding bg-apple-gray-50 dark:bg-apple-gray-900">
+            <div class="container-max">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">关于我们</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        我们是一群热爱科技、勇于创新的年轻人，致力于通过机器人技术探索未来的无限可能
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card hover-lift scroll-reveal stagger-1">
+                        <div class="w-16 h-16 bg-apple-blue rounded-2xl flex items-center justify-center mb-4">
+                            <span class="text-white text-2xl">🤖</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-3">技术创新</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300">
+                            运用最新的机器人技术和编程语言，不断推进技术边界，创造出令人惊叹的机器人作品
+                        </p>
+                    </div>
+                    
+                    <div class="card hover-lift scroll-reveal stagger-2">
+                        <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mb-4">
+                            <span class="text-white text-2xl">🏆</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-3">竞赛成就</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300">
+                            积极参与各类机器人竞赛，在VEX世界锦标赛等国际赛事中屡获佳绩，展现团队实力
+                        </p>
+                    </div>
+                    
+                    <div class="card hover-lift scroll-reveal stagger-3">
+                        <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-4">
+                            <span class="text-white text-2xl">🌟</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-3">团队协作</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300">
+                            培养团队合作精神，每个成员都能在机械设计、编程开发、项目管理等方面发挥所长
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Activities Section -->
+        <section id="activities" class="section-padding">
+            <div class="container-max">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">活动展示</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        探索我们丰富多彩的机器人活动和竞赛成果
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card overflow-hidden group hover-lift scroll-reveal stagger-1">
+                        <div class="h-48 bg-gradient-to-br from-apple-blue to-purple-600 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-white text-6xl font-bold opacity-20">VEX</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">
+                                VEX机器人世界锦标赛
+                            </h3>
+                            <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">
+                                参加全球最大的机器人竞赛，与世界各地的优秀团队同台竞技
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-apple-blue font-medium">2024年3月</span>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                                    获奖
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card overflow-hidden group hover-lift scroll-reveal stagger-2">
+                        <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-white text-4xl font-bold opacity-20">WORKSHOP</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">
+                                机器人编程工作坊
+                            </h3>
+                            <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">
+                                定期举办编程培训，从基础到高级，帮助成员提升技术能力
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-apple-blue font-medium">每月举办</span>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                                    进行中
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card overflow-hidden group hover-lift scroll-reveal stagger-3">
+                        <div class="h-48 bg-gradient-to-br from-green-500 to-teal-600 relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-white text-4xl font-bold opacity-20">DEMO</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">
+                                科技节展示
+                            </h3>
+                            <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">
+                                在学校科技节上展示我们的机器人作品，与全校师生分享成果
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-apple-blue font-medium">2024年5月</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                                    即将开始
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Members Section -->
+        <section id="members" class="section-padding bg-apple-gray-50 dark:bg-apple-gray-900">
+            <div class="container-max">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">团队成员</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        认识我们充满激情的机器人团队成员
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div class="card text-center group hover-lift scroll-reveal stagger-1">
+                        <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-apple-blue to-purple-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-2xl font-bold">张三</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">张三</h3>
+                        <p class="text-apple-blue font-medium mb-2">团队队长</p>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 text-sm mb-4">
+                            负责团队整体规划和项目管理，擅长机械设计和团队协调
+                        </p>
+                        <div class="flex justify-center space-x-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">机械设计</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">项目管理</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card text-center group hover-lift scroll-reveal stagger-2">
+                        <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-2xl font-bold">李四</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">李四</h3>
+                        <p class="text-apple-blue font-medium mb-2">编程负责人</p>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 text-sm mb-4">
+                            专注于机器人编程和算法优化，精通C++和Python
+                        </p>
+                        <div class="flex justify-center space-x-2">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">编程</span>
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">算法</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card text-center group hover-lift scroll-reveal stagger-3">
+                        <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-2xl font-bold">王五</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">王五</h3>
+                        <p class="text-apple-blue font-medium mb-2">硬件工程师</p>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 text-sm mb-4">
+                            负责电路设计和传感器集成，确保机器人硬件稳定运行
+                        </p>
+                        <div class="flex justify-center space-x-2">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">电路设计</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">传感器</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card text-center group hover:scale-105 transition-transform duration-300">
+                        <div class="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-2xl font-bold">赵六</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-2">赵六</h3>
+                        <p class="text-apple-blue font-medium mb-2">设计师</p>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 text-sm mb-4">
+                            负责机器人外观设计和用户界面，让技术与美学完美结合
+                        </p>
+                        <div class="flex justify-center space-x-2">
+                            <span class="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs">UI设计</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full text-xs">外观设计</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-20 text-center">
+                    <div class="card max-w-2xl mx-auto">
+                        <h3 class="text-3xl font-bold text-apple-gray-900 dark:text-white mb-4">加入我们</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-6">
+                            如果你对机器人技术充满热情，欢迎加入我们的团队！
+                        </p>
+                        <button class="btn-primary">申请加入</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="section-padding">
+            <div class="container-max">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">联系我们</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        有任何问题或想要加入我们？随时与我们取得联系
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="card">
+                        <h3 class="text-2xl font-bold text-apple-gray-900 dark:text-white mb-6">发送消息</h3>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">姓名</label>
+                                <input type="text" class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white" placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">邮箱</label>
+                                <input type="email" class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white" placeholder="请输入您的邮箱地址">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">主题</label>
+                                <input type="text" class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white" placeholder="请输入消息主题">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">消息内容</label>
+                                <textarea rows="6" class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white resize-none" placeholder="请输入您想要发送的消息..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full">发送消息</button>
+                        </form>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="card">
+                            <h4 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4">联系方式</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-apple-blue rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-sm font-bold">📧</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-apple-gray-900 dark:text-white">邮箱</p>
+                                        <p class="text-apple-gray-600 dark:text-apple-gray-300">robotics@school.edu</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-sm font-bold">💬</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-apple-gray-900 dark:text-white">微信群</p>
+                                        <p class="text-apple-gray-600 dark:text-apple-gray-300">扫码加入官方群聊</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-sm font-bold">📍</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-apple-gray-900 dark:text-white">活动地点</p>
+                                        <p class="text-apple-gray-600 dark:text-apple-gray-300">学校科技楼 3F 机器人实验室</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4">活动时间</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-apple-gray-600 dark:text-apple-gray-300">周三</span>
+                                    <span class="font-medium text-apple-gray-900 dark:text-white">16:00 - 18:00</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-apple-gray-600 dark:text-apple-gray-300">周六</span>
+                                    <span class="font-medium text-apple-gray-900 dark:text-white">14:00 - 17:00</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-apple-gray-600 dark:text-apple-gray-300">周日</span>
+                                    <span class="font-medium text-apple-gray-900 dark:text-white">09:00 - 12:00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <h4 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <button class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors">
+                                    <span class="text-white font-bold">B</span>
+                                </button>
+                                <button class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center hover:bg-green-600 transition-colors">
+                                    <span class="text-white font-bold">微</span>
+                                </button>
+                                <button class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center hover:bg-red-600 transition-colors">
+                                    <span class="text-white font-bold">小</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comments Section -->
+        <section id="comments" class="section-padding bg-apple-gray-50 dark:bg-apple-gray-800">
+            <div class="container-max">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">留言板</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        分享你的想法和建议
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <!-- Comment Form -->
+                    <div class="card mb-8">
+                        <h3 class="text-2xl font-bold text-apple-gray-900 dark:text-white mb-6">发表留言</h3>
+                        <form id="commentForm" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">昵称</label>
+                                    <input type="text" id="commentName" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">邮箱（可选）</label>
+                                    <input type="email" id="commentEmail" class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">留言内容</label>
+                                <textarea rows="4" id="commentContent" required placeholder="分享你对VEX机器人社团的想法..." class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">发表留言</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Comments List -->
+                    <div id="commentsList" class="space-y-6">
+                        <!-- Sample Comments -->
+                        <div class="card">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-apple-blue to-purple-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-semibold">张</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <h4 class="font-semibold text-apple-gray-900 dark:text-white">张同学</h4>
+                                        <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">2024-01-15</span>
+                                    </div>
+                                    <p class="text-apple-gray-700 dark:text-apple-gray-300 mb-3">VEX机器人社团真的很棒！在这里学到了很多编程和机械设计的知识，团队氛围也很好。期待参加更多的比赛！</p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="text-apple-blue hover:text-blue-700 text-sm font-medium transition-colors">👍 点赞 (5)</button>
+                                        <button class="text-apple-gray-500 dark:text-apple-gray-400 hover:text-apple-gray-700 text-sm font-medium transition-colors">回复</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-semibold">李</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <h4 class="font-semibold text-apple-gray-900 dark:text-white">李明</h4>
+                                        <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">2024-01-14</span>
+                                    </div>
+                                    <p class="text-apple-gray-700 dark:text-apple-gray-300 mb-3">作为新成员，感谢学长学姐们的耐心指导。从零基础到能独立完成机器人编程，这个过程很有成就感！</p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="text-apple-blue hover:text-blue-700 text-sm font-medium transition-colors">👍 点赞 (3)</button>
+                                        <button class="text-apple-gray-500 dark:text-apple-gray-400 hover:text-apple-gray-700 text-sm font-medium transition-colors">回复</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Registration Section -->
+        <section id="registration" class="section-padding">
+            <div class="container-max">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">活动报名</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        参加我们的精彩活动
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <!-- Upcoming Event -->
+                    <div class="bg-gradient-to-r from-apple-blue to-purple-600 rounded-2xl p-8 text-white mb-8">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-4">2024年VEX机器人竞赛</h3>
+                                <p class="text-blue-100 mb-6">展示你的机器人设计和编程技能，与全国顶尖团队同台竞技</p>
+                                <div class="space-y-2 text-blue-100">
+                                    <p>📅 时间：2024年3月15日-17日</p>
+                                    <p>📍 地点：国家会议中心</p>
+                                    <p>👥 名额：限20人</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <!-- Countdown Timer -->
+                                <div class="bg-white/10 rounded-xl p-6 mb-6">
+                                    <h4 class="text-lg font-semibold mb-4">距离报名截止</h4>
+                                    <div id="countdown" class="grid grid-cols-4 gap-4 text-center">
+                                        <div>
+                                            <div class="text-2xl font-bold" id="days">00</div>
+                                            <div class="text-sm">天</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-2xl font-bold" id="hours">00</div>
+                                            <div class="text-sm">时</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-2xl font-bold" id="minutes">00</div>
+                                            <div class="text-sm">分</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-2xl font-bold" id="seconds">00</div>
+                                            <div class="text-sm">秒</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="registerBtn" class="bg-white text-apple-blue font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
+                                    立即报名
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Registration Form Modal -->
+                    <div id="registrationModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+                        <div class="bg-white dark:bg-apple-gray-900 rounded-2xl p-8 max-w-md w-full mx-4">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-2xl font-bold text-apple-gray-900 dark:text-white">活动报名</h3>
+                                <button id="closeModal" class="text-apple-gray-500 hover:text-apple-gray-700">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <form id="eventRegistrationForm" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">姓名</label>
+                                    <input type="text" id="regName" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">学号</label>
+                                    <input type="text" id="regStudentId" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">联系电话</label>
+                                    <input type="tel" id="regPhone" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">邮箱</label>
+                                    <input type="email" id="regEmail" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">参赛经验</label>
+                                    <select id="regExperience" required class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white">
+                                        <option value="">请选择</option>
+                                        <option value="beginner">初学者</option>
+                                        <option value="intermediate">有一定经验</option>
+                                        <option value="advanced">经验丰富</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">特殊说明</label>
+                                    <textarea rows="3" id="regNotes" placeholder="如有特殊需求或说明，请在此填写..." class="w-full px-4 py-3 border border-apple-gray-300 dark:border-apple-gray-600 rounded-lg focus:ring-2 focus:ring-apple-blue focus:border-transparent bg-white dark:bg-apple-gray-800 text-apple-gray-900 dark:text-white resize-none"></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary w-full">确认报名</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section-padding bg-apple-gray-50 dark:bg-apple-gray-800">
+            <div class="container-max">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold text-apple-gray-900 dark:text-white mb-6">资源下载</h2>
+                    <p class="text-xl text-apple-gray-600 dark:text-apple-gray-300 max-w-3xl mx-auto">
+                        获取学习资料和社团手册
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Resource Cards -->
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-apple-blue to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">新手入门指南</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">VEX机器人基础知识和入门教程</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">PDF • 2.5MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">编程教程合集</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">C++和Python机器人编程实例</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">ZIP • 15.8MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">社团章程</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">社团规章制度和管理办法</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">PDF • 1.2MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">硬件清单</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">VEX机器人套件和工具清单</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">XLSX • 0.8MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">比赛视频集锦</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">历届比赛精彩瞬间回顾</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">MP4 • 125MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card hover:shadow-lg transition-shadow group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-900 dark:text-white mb-2">数据分析工具</h3>
+                        <p class="text-apple-gray-600 dark:text-apple-gray-300 mb-4">机器人性能分析和优化工具</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">EXE • 8.5MB</span>
+                            <button class="btn-primary text-sm px-4 py-2">下载</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-apple-gray-900 dark:bg-black text-white section-padding">
+        <div class="container-max">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 bg-apple-blue rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">VEX</span>
+                        </div>
+                        <span class="text-xl font-bold">机器人社团</span>
+                    </div>
+                    <p class="text-apple-gray-300 mb-4 max-w-md">
+                        我们致力于通过机器人技术培养创新思维，为学生提供实践平台，共同探索科技的无限可能。
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="w-10 h-10 bg-apple-gray-800 rounded-lg flex items-center justify-center hover:bg-apple-gray-700 transition-colors">
+                            <span class="text-white font-bold">B</span>
+                        </button>
+                        <button class="w-10 h-10 bg-apple-gray-800 rounded-lg flex items-center justify-center hover:bg-apple-gray-700 transition-colors">
+                            <span class="text-white font-bold">微</span>
+                        </button>
+                        <button class="w-10 h-10 bg-apple-gray-800 rounded-lg flex items-center justify-center hover:bg-apple-gray-700 transition-colors">
+                            <span class="text-white font-bold">小</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-apple-gray-300 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#about" class="text-apple-gray-300 hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="#activities" class="text-apple-gray-300 hover:text-white transition-colors">活动展示</a></li>
+                        <li><a href="#members" class="text-apple-gray-300 hover:text-white transition-colors">团队成员</a></li>
+                        <li><a href="#contact" class="text-apple-gray-300 hover:text-white transition-colors">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系信息</h4>
+                    <ul class="space-y-2 text-apple-gray-300">
+                        <li>📧 robotics@school.edu</li>
+                        <li>📍 学校科技楼 3F</li>
+                        <li>🕒 周三 16:00-18:00</li>
+                        <li>🕒 周六 14:00-17:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-apple-gray-800 mt-12 pt-8 text-center">
+                <p class="text-apple-gray-400">
+                    © 2024 VEX机器人社团. 保留所有权利. | 探索科技，创造未来
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeIconMobile = document.getElementById('theme-icon-mobile');
+            const html = document.documentElement;
+            
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            html.classList.toggle('dark', currentTheme === 'dark');
+            const iconText = currentTheme === 'dark' ? '☀️' : '🌙';
+            if (themeIcon) themeIcon.textContent = iconText;
+            if (themeIconMobile) themeIconMobile.textContent = iconText;
+            
+            function toggleTheme() {
+                const isDark = html.classList.contains('dark');
+                html.classList.toggle('dark', !isDark);
+                const newTheme = !isDark ? 'dark' : 'light';
+                localStorage.setItem('theme', newTheme);
+                const newIconText = newTheme === 'dark' ? '☀️' : '🌙';
+                if (themeIcon) themeIcon.textContent = newIconText;
+                if (themeIconMobile) themeIconMobile.textContent = newIconText;
+            }
+            
+            if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+        
+        initThemeToggle();
+        
+        // User Authentication Management
+        function initUserAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const username = localStorage.getItem('username');
+            const userRole = localStorage.getItem('userRole');
+            
+            const loginBtn = document.getElementById('login-btn');
+            const mobileLoginBtn = document.getElementById('mobile-login-btn');
+            const userMenu = document.getElementById('user-menu');
+            const mobileUserMenu = document.getElementById('mobile-user-menu');
+            const userName = document.getElementById('user-name');
+            const mobileUserName = document.getElementById('mobile-user-name');
+            const logoutBtn = document.getElementById('logout-btn');
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+            
+            if (isLoggedIn && username) {
+                // Show user menu, hide login button
+                loginBtn.classList.add('hidden');
+                mobileLoginBtn.classList.add('hidden');
+                userMenu.classList.remove('hidden');
+                mobileUserMenu.classList.remove('hidden');
+                
+                // Set username with role badge
+                const roleText = {
+                    'admin': '👑 管理员',
+                    'member': '👥 成员',
+                    'guest': '👤 访客'
+                };
+                const displayText = `${roleText[userRole] || '👤 用户'} ${username}`;
+                userName.textContent = displayText;
+                mobileUserName.textContent = displayText;
+                
+                // Add admin panel link for admin and member
+                if (userRole === 'admin' || userRole === 'member') {
+                    const adminLink = document.createElement('a');
+                    adminLink.href = 'admin.html';
+                    adminLink.textContent = '管理面板';
+                    adminLink.className = 'ml-2 text-sm text-apple-blue hover:text-blue-600';
+                    userMenu.appendChild(adminLink);
+                    
+                    const mobileAdminLink = document.createElement('a');
+                    mobileAdminLink.href = 'admin.html';
+                    mobileAdminLink.textContent = '管理面板';
+                    mobileAdminLink.className = 'block py-2 text-center bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors mt-2';
+                    mobileUserMenu.appendChild(mobileAdminLink);
+                }
+            } else {
+                // Show login button, hide user menu
+                loginBtn.classList.remove('hidden');
+                mobileLoginBtn.classList.remove('hidden');
+                userMenu.classList.add('hidden');
+                mobileUserMenu.classList.add('hidden');
+            }
+            
+            // Logout functionality
+            function logout() {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('username');
+                localStorage.removeItem('userRole');
+                window.location.reload();
+            }
+            
+            logoutBtn.addEventListener('click', logout);
+            mobileLogoutBtn.addEventListener('click', logout);
+        }
+        
+        initUserAuth();
+        
+        // Comments System
+        function initCommentSystem() {
+            const commentForm = document.getElementById('commentForm');
+            const commentsList = document.getElementById('commentsList');
+            
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('commentName').value;
+                    const email = document.getElementById('commentEmail').value;
+                    const content = document.getElementById('commentContent').value;
+                    
+                    if (name && content) {
+                        addComment(name, content);
+                        commentForm.reset();
+                        
+                        // Show success message
+                        showNotification('留言发表成功！', 'success');
+                    }
+                });
+            }
+        }
+        
+        function addComment(name, content) {
+            const commentsList = document.getElementById('commentsList');
+            const now = new Date();
+            const dateStr = now.getFullYear() + '-' + 
+                           String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                           String(now.getDate()).padStart(2, '0');
+            
+            const colors = [
+                'from-apple-blue to-purple-600',
+                'from-green-500 to-teal-600',
+                'from-purple-500 to-pink-600',
+                'from-red-500 to-orange-600',
+                'from-yellow-500 to-orange-600'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const initial = name.charAt(0).toUpperCase();
+            
+            const commentHTML = `
+                <div class="card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br ${randomColor} rounded-full flex items-center justify-center">
+                            <span class="text-white font-semibold">${initial}</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <h4 class="font-semibold text-apple-gray-900 dark:text-white">${name}</h4>
+                                <span class="text-sm text-apple-gray-500 dark:text-apple-gray-400">${dateStr}</span>
+                            </div>
+                            <p class="text-apple-gray-700 dark:text-apple-gray-300 mb-3">${content}</p>
+                            <div class="flex items-center space-x-4">
+                                <button class="text-apple-blue hover:text-blue-700 text-sm font-medium transition-colors">👍 点赞 (0)</button>
+                                <button class="text-apple-gray-500 dark:text-apple-gray-400 hover:text-apple-gray-700 text-sm font-medium transition-colors">回复</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            commentsList.insertAdjacentHTML('afterbegin', commentHTML);
+        }
+        
+        // Event Registration System
+        function initEventRegistration() {
+            const registerBtn = document.getElementById('registerBtn');
+            const modal = document.getElementById('registrationModal');
+            const closeModal = document.getElementById('closeModal');
+            const registrationForm = document.getElementById('eventRegistrationForm');
+            
+            if (registerBtn && modal) {
+                registerBtn.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                });
+                
+                closeModal.addEventListener('click', function() {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                });
+                
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                });
+                
+                registrationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        name: document.getElementById('regName').value,
+                        studentId: document.getElementById('regStudentId').value,
+                        phone: document.getElementById('regPhone').value,
+                        email: document.getElementById('regEmail').value,
+                        experience: document.getElementById('regExperience').value,
+                        notes: document.getElementById('regNotes').value
+                    };
+                    
+                    // Simulate form submission
+                    showNotification('报名成功！我们会尽快与您联系。', 'success');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    registrationForm.reset();
+                });
+            }
+        }
+        
+        // Countdown Timer
+        function initCountdown() {
+            const countdownElements = {
+                days: document.getElementById('days'),
+                hours: document.getElementById('hours'),
+                minutes: document.getElementById('minutes'),
+                seconds: document.getElementById('seconds')
+            };
+            
+            // Set target date (30 days from now for demo)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 30);
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate.getTime() - now;
+                
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    if (countdownElements.days) countdownElements.days.textContent = String(days).padStart(2, '0');
+                    if (countdownElements.hours) countdownElements.hours.textContent = String(hours).padStart(2, '0');
+                    if (countdownElements.minutes) countdownElements.minutes.textContent = String(minutes).padStart(2, '0');
+                    if (countdownElements.seconds) countdownElements.seconds.textContent = String(seconds).padStart(2, '0');
+                } else {
+                    // Countdown finished
+                    Object.values(countdownElements).forEach(el => {
+                        if (el) el.textContent = '00';
+                    });
+                }
+            }
+            
+            // Update countdown every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Resource Downloads
+        function initResourceDownloads() {
+            const downloadButtons = document.querySelectorAll('#resources .btn-primary');
+            
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const resourceName = this.closest('.card').querySelector('h3').textContent;
+                    showNotification(`正在下载：${resourceName}`, 'info');
+                    
+                    // Simulate download delay
+                    setTimeout(() => {
+                        showNotification(`${resourceName} 下载完成！`, 'success');
+                    }, 2000);
+                });
+            });
+        }
+        
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg text-white font-medium transform translate-x-full transition-transform duration-300`;
+            
+            switch(type) {
+                case 'success':
+                    notification.classList.add('bg-green-500');
+                    break;
+                case 'error':
+                    notification.classList.add('bg-red-500');
+                    break;
+                case 'info':
+                default:
+                    notification.classList.add('bg-apple-blue');
+                    break;
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Scroll Reveal Animation
+        function initScrollReveal() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all scroll reveal elements
+            document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // 立即显示首屏内容
+            setTimeout(() => {
+                document.querySelectorAll('#home .scroll-reveal, #about .scroll-reveal').forEach(el => {
+                    el.classList.add('revealed');
+                });
+            }, 100);
+        }
+        
+        // Parallax Effect
+        function initParallax() {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            function updateParallax() {
+                const scrolled = window.pageYOffset;
+                
+                parallaxElements.forEach(element => {
+                    const rate = scrolled * -0.5;
+                    element.style.transform = `translateY(${rate}px)`;
+                });
+            }
+            
+            window.addEventListener('scroll', updateParallax);
+        }
+        
+        // Enhanced Smooth Scrolling
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Initialize new interactive features
+        initCommentSystem();
+        initEventRegistration();
+        initCountdown();
+        initResourceDownloads();
+        initScrollReveal();
+        initParallax();
+        initSmoothScrolling();
+        
+        // Initialize cloud services and CDN
+        initCloudServices();
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Navbar background on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('backdrop-blur-md');
+            } else {
+                navbar.classList.remove('backdrop-blur-md');
+            }
+        });
+        
+        // Intersection Observer for animations (removed duplicate - observer handled in initScrollReveal)
+        
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+        
+        // Form submission (placeholder)
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('感谢您的消息！我们会尽快回复您。');
+        });
+        
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+        
+        // Cloud Services Initialization
+        function initCloudServices() {
+            // Initialize CDN manager
+            if (typeof cdnManager !== 'undefined') {
+                console.log('CDN服务已初始化');
+            }
+            
+            // Initialize lazy image loading
+            if (typeof lazyImageLoader !== 'undefined') {
+                console.log('图片懒加载已启用');
+            }
+            
+            // Initialize SEO manager
+            if (typeof seoManager !== 'undefined') {
+                // Set page-specific SEO data
+                seoManager.setPageSEO({
+                    title: 'VEX机器人社团 - 首页',
+                    description: '专业的VEX机器人竞赛团队，致力于培养学生的工程思维和创新能力。了解我们的活动、团队成员和最新动态。',
+                    keywords: 'VEX机器人,机器人竞赛,STEM教育,工程教育,创新教育,学生社团',
+                    url: '/',
+                    type: 'website'
+                });
+                
+                console.log('SEO优化已启用');
+            }
+            
+            // Initialize file upload components
+            initFileUploadComponents();
+            
+            // Performance optimization
+            optimizePagePerformance();
+        }
+        
+        // Initialize file upload components
+        function initFileUploadComponents() {
+            // Add file upload to contact form if needed
+            const contactForm = document.querySelector('#contact-form');
+            if (contactForm && typeof FileUpload !== 'undefined') {
+                const uploadContainer = document.createElement('div');
+                uploadContainer.id = 'file-upload-container';
+                uploadContainer.innerHTML = '<h4>附件上传</h4>';
+                
+                const fileUpload = new FileUpload(uploadContainer, {
+                    multiple: true,
+                    accept: 'image/*,.pdf,.doc,.docx',
+                    maxSize: 5 * 1024 * 1024, // 5MB
+                    folder: 'contact-attachments',
+                    onUploadComplete: (fileItem, result) => {
+                        console.log('文件上传成功:', result);
+                        showNotification('文件上传成功！', 'success');
+                    },
+                    onUploadError: (fileItem, error) => {
+                        console.error('文件上传失败:', error);
+                        showNotification('文件上传失败，请重试', 'error');
+                    }
+                });
+                
+                contactForm.appendChild(uploadContainer);
+            }
+        }
+        
+        // Performance optimization
+        function optimizePagePerformance() {
+            // Optimize images with CDN
+            document.querySelectorAll('img').forEach(img => {
+                if (typeof cdnManager !== 'undefined' && img.src && !img.src.startsWith('data:')) {
+                    const optimizedUrl = cdnManager.getOptimizedImageUrl(img.src, {
+                        width: img.width || 800,
+                        quality: 85,
+                        format: 'webp'
+                    });
+                    
+                    // Use data-src for lazy loading
+                    if (!img.dataset.src) {
+                        img.dataset.src = optimizedUrl;
+                        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNmM2Y0ZjYiLz48L3N2Zz4=';
+                    }
+                }
+            });
+            
+            // Preload critical resources
+            if (typeof resourcePrefetcher !== 'undefined') {
+                resourcePrefetcher.prefetchCritical([
+                    '/css/main.css',
+                    '/js/main.js',
+                    '/images/logo.svg'
+                ]);
+            }
+            
+            // Track performance metrics
+            if (typeof seoManager !== 'undefined') {
+                setTimeout(() => {
+                    const performanceData = {
+                        loadTime: performance.now(),
+                        domContentLoaded: performance.getEntriesByType('navigation')[0]?.domContentLoadedEventEnd,
+                        firstPaint: performance.getEntriesByName('first-paint')[0]?.startTime,
+                        firstContentfulPaint: performance.getEntriesByName('first-contentful-paint')[0]?.startTime
+                    };
+                    
+                    seoManager.trackEvent('performance', 'page_load', 'homepage', Math.round(performanceData.loadTime));
+                }, 1000);
+            }
+        }
+    </script>
+    
+    <!-- Load cloud services -->
+    <script type="module">
+        import cdnManager from './src/utils/cdn.js';
+        import seoManager from './src/utils/seo.js';
+        import FileUpload from './src/components/FileUpload.js';
+        
+        // Make available globally
+        window.cdnManager = cdnManager;
+        window.seoManager = seoManager;
+        window.FileUpload = FileUpload;
+        
+        console.log('云服务模块加载完成');
+    </script>
+</body>
+</html>
