@@ -9,7 +9,8 @@
     "build": "echo 'Building static site...' && echo 'Build complete!'",
     "start": "python3 -m http.server 8000",
     "preview": "python3 -m http.server 4173",
-    "deploy": "vercel --prod",
+    "deploy": "gh-pages -d .",
+    "deploy:vercel": "vercel --prod",
     "lint": "echo 'Linting HTML, CSS, and JS files...'",
     "test": "echo 'Running tests...' && echo 'All tests passed!'"
   },
@@ -36,17 +37,14 @@
   "bugs": {
     "url": "https://github.com/vex-robotics-club/website/issues"
   },
-  "homepage": "https://vexrobotics.club",
+  "homepage": "https://vex-robotics-club.github.io/website",
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "@vercel/static": "^3.0.0",
-    "tailwindcss": "^3.4.0",
-    "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0"
+    "gh-pages": "^6.1.0"
   },
   "browserslist": [
     "> 1%",

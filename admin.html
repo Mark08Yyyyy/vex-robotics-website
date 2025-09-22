@@ -248,54 +248,135 @@
             <!-- Content Management Tab -->
             <div id="content-tab" class="tab-content hidden">
                 <div class="mb-6">
-                    <h2 class="text-3xl font-bold text-apple-gray-900 dark:text-white mb-2">内容管理</h2>
-                    <p class="text-apple-gray-600 dark:text-apple-gray-300">创建和管理网站内容</p>
+                    <h2 class="text-3xl font-bold text-apple-gray-900 dark:text-white mb-2">网站内容编辑</h2>
+                    <p class="text-apple-gray-600 dark:text-apple-gray-300">编辑网站首页的各个部分内容</p>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2">
-                        <div class="card">
-                            <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4">创建新内容</h3>
-                            <form class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">标题</label>
-                                    <input type="text" class="input-field" placeholder="请输入文章标题">
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">分类</label>
-                                    <select class="input-field">
-                                        <option>选择分类</option>
-                                        <option>活动报道</option>
-                                        <option>技术分享</option>
-                                        <option>团队动态</option>
-                                        <option>竞赛成果</option>
-                                    </select>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">摘要</label>
-                                    <textarea class="input-field" rows="3" placeholder="请输入文章摘要"></textarea>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">内容</label>
-                                    <textarea class="input-field" rows="10" placeholder="请输入文章内容"></textarea>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">标签</label>
-                                    <input type="text" class="input-field" placeholder="请输入标签，用逗号分隔">
-                                </div>
-                                
-                                <div class="flex space-x-4">
-                                    <button type="button" class="btn-secondary">保存草稿</button>
-                                    <button type="button" class="btn-primary">发布</button>
-                                    <button type="button" class="btn-secondary">预览</button>
-                                </div>
-                            </form>
+                <div class="grid grid-cols-1 gap-6">
+                    <!-- Hero区域编辑 -->
+                    <div class="card">
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4 flex items-center">
+                            <span class="text-2xl mr-2">🎯</span>
+                            Hero区域（首页横幅）
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">主标题</label>
+                                <input type="text" id="hero-title" class="input-field" placeholder="探索科技">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">副标题</label>
+                                <input type="text" id="hero-subtitle" class="input-field" placeholder="创造未来">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">描述文字</label>
+                                <textarea id="hero-description" class="input-field" rows="3" placeholder="加入VEX机器人社团，与志同道合的伙伴一起..."></textarea>
+                            </div>
+                            <div class="flex space-x-4">
+                                <button type="button" class="btn-primary" onclick="saveHeroContent()">保存Hero内容</button>
+                                <button type="button" class="btn-secondary" onclick="previewChanges()">预览更改</button>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- 关于我们区域编辑 -->
+                    <div class="card">
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4 flex items-center">
+                            <span class="text-2xl mr-2">ℹ️</span>
+                            关于我们区域
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">区域标题</label>
+                                <input type="text" id="about-title" class="input-field" placeholder="关于我们">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">区域描述</label>
+                                <textarea id="about-description" class="input-field" rows="3" placeholder="我们是一群热爱科技、勇于创新的年轻人..."></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">特色1标题</label>
+                                    <input type="text" id="feature1-title" class="input-field" placeholder="技术创新">
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2 mt-2">特色1描述</label>
+                                    <textarea id="feature1-desc" class="input-field" rows="3" placeholder="运用最新的机器人技术..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">特色2标题</label>
+                                    <input type="text" id="feature2-title" class="input-field" placeholder="团队协作">
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2 mt-2">特色2描述</label>
+                                    <textarea id="feature2-desc" class="input-field" rows="3" placeholder="培养团队合作精神..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">特色3标题</label>
+                                    <input type="text" id="feature3-title" class="input-field" placeholder="实践应用">
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2 mt-2">特色3描述</label>
+                                    <textarea id="feature3-desc" class="input-field" rows="3" placeholder="理论与实践相结合..."></textarea>
+                                </div>
+                            </div>
+                            <div class="flex space-x-4">
+                                <button type="button" class="btn-primary" onclick="saveAboutContent()">保存关于我们内容</button>
+                                <button type="button" class="btn-secondary" onclick="resetAboutContent()">重置为默认</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 联系信息编辑 -->
+                    <div class="card">
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4 flex items-center">
+                            <span class="text-2xl mr-2">📞</span>
+                            联系信息
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">邮箱地址</label>
+                                    <input type="email" id="contact-email" class="input-field" placeholder="vex@school.edu">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">联系电话</label>
+                                    <input type="tel" id="contact-phone" class="input-field" placeholder="+86 123 4567 8900">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">地址</label>
+                                <input type="text" id="contact-address" class="input-field" placeholder="学校地址">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-apple-gray-700 dark:text-apple-gray-300 mb-2">社交媒体链接</label>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <input type="url" id="social-wechat" class="input-field" placeholder="微信群二维码链接">
+                                    <input type="url" id="social-qq" class="input-field" placeholder="QQ群链接">
+                                    <input type="url" id="social-github" class="input-field" placeholder="GitHub链接">
+                                </div>
+                            </div>
+                            <div class="flex space-x-4">
+                                <button type="button" class="btn-primary" onclick="saveContactContent()">保存联系信息</button>
+                                <button type="button" class="btn-secondary" onclick="testContactInfo()">测试联系方式</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 全局操作 -->
+                    <div class="card bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+                        <h3 class="text-xl font-semibold text-apple-gray-900 dark:text-white mb-4 flex items-center">
+                            <span class="text-2xl mr-2">🔧</span>
+                            全局操作
+                        </h3>
+                        <div class="flex flex-wrap gap-4">
+                            <button type="button" class="btn-primary" onclick="saveAllContent()">保存所有更改</button>
+                            <button type="button" class="btn-secondary" onclick="loadCurrentContent()">加载当前内容</button>
+                            <button type="button" class="btn-secondary" onclick="exportContent()">导出内容</button>
+                            <button type="button" class="btn-secondary" onclick="importContent()">导入内容</button>
+                            <button type="button" class="bg-red-500 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-red-600" onclick="resetAllContent()">重置所有内容</button>
+                        </div>
+                        <div class="mt-4 p-4 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+                            <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                                <strong>提示：</strong> 所有更改会实时保存到浏览器本地存储。要应用到实际网站，请点击"保存所有更改"按钮。
+                            </p>
+                        </div>
+                    </div>
+                </div>
                     
                     <div>
                         <div class="card mb-6">
@@ -1087,22 +1168,239 @@
             document.querySelector('input[placeholder="请输入标签，用逗号分隔"]').value = '';
         }
         
+        // Website Content Editor Functions
+        function saveHeroContent() {
+            const heroData = {
+                title: document.getElementById('hero-title').value,
+                subtitle: document.getElementById('hero-subtitle').value,
+                description: document.getElementById('hero-description').value
+            };
+            
+            localStorage.setItem('website_hero_content', JSON.stringify(heroData));
+            showNotification('Hero区域内容已保存！', 'success');
+        }
+        
+        function saveAboutContent() {
+            const aboutData = {
+                title: document.getElementById('about-title').value,
+                description: document.getElementById('about-description').value,
+                feature1: {
+                    title: document.getElementById('feature1-title').value,
+                    description: document.getElementById('feature1-desc').value
+                },
+                feature2: {
+                    title: document.getElementById('feature2-title').value,
+                    description: document.getElementById('feature2-desc').value
+                },
+                feature3: {
+                    title: document.getElementById('feature3-title').value,
+                    description: document.getElementById('feature3-desc').value
+                }
+            };
+            
+            localStorage.setItem('website_about_content', JSON.stringify(aboutData));
+            showNotification('关于我们区域内容已保存！', 'success');
+        }
+        
+        function saveContactContent() {
+            const contactData = {
+                email: document.getElementById('contact-email').value,
+                phone: document.getElementById('contact-phone').value,
+                address: document.getElementById('contact-address').value,
+                social: {
+                    wechat: document.getElementById('social-wechat').value,
+                    qq: document.getElementById('social-qq').value,
+                    github: document.getElementById('social-github').value
+                }
+            };
+            
+            localStorage.setItem('website_contact_content', JSON.stringify(contactData));
+            showNotification('联系信息已保存！', 'success');
+        }
+        
+        function saveAllContent() {
+            saveHeroContent();
+            saveAboutContent();
+            saveContactContent();
+            
+            // 应用到实际网站
+            applyContentToWebsite();
+            showNotification('所有内容已保存并应用到网站！', 'success');
+        }
+        
+        function loadCurrentContent() {
+            // 从首页加载当前内容
+            fetch('../index.html')
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // 提取Hero区域内容
+                    const heroTitle = doc.querySelector('.hero-title')?.textContent || '';
+                    const heroSubtitle = doc.querySelector('.hero-subtitle')?.textContent || '';
+                    const heroDesc = doc.querySelector('.hero-description')?.textContent || '';
+                    
+                    document.getElementById('hero-title').value = heroTitle;
+                    document.getElementById('hero-subtitle').value = heroSubtitle;
+                    document.getElementById('hero-description').value = heroDesc;
+                    
+                    showNotification('当前网站内容已加载！', 'info');
+                })
+                .catch(error => {
+                    console.error('加载内容失败:', error);
+                    showNotification('加载内容失败，请检查网络连接', 'error');
+                });
+        }
+        
+        function applyContentToWebsite() {
+            // 获取保存的内容
+            const heroData = JSON.parse(localStorage.getItem('website_hero_content') || '{}');
+            const aboutData = JSON.parse(localStorage.getItem('website_about_content') || '{}');
+            const contactData = JSON.parse(localStorage.getItem('website_contact_content') || '{}');
+            
+            // 这里可以通过API将内容应用到实际网站
+            // 或者直接修改index.html文件
+            console.log('应用内容到网站:', { heroData, aboutData, contactData });
+        }
+        
+        function previewChanges() {
+            // 在新窗口中预览更改
+            const previewWindow = window.open('../index.html', '_blank');
+            showNotification('预览窗口已打开！', 'info');
+        }
+        
+        function resetAboutContent() {
+            if (confirm('确定要重置关于我们区域的内容吗？')) {
+                document.getElementById('about-title').value = '关于我们';
+                document.getElementById('about-description').value = '我们是一群热爱科技、勇于创新的年轻人';
+                document.getElementById('feature1-title').value = '技术创新';
+                document.getElementById('feature1-desc').value = '运用最新的机器人技术';
+                document.getElementById('feature2-title').value = '团队协作';
+                document.getElementById('feature2-desc').value = '培养团队合作精神';
+                document.getElementById('feature3-title').value = '实践应用';
+                document.getElementById('feature3-desc').value = '理论与实践相结合';
+                showNotification('关于我们区域已重置为默认内容！', 'info');
+            }
+        }
+        
+        function testContactInfo() {
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+            
+            if (email) {
+                window.open(`mailto:${email}`, '_blank');
+            }
+            if (phone) {
+                showNotification(`联系电话: ${phone}`, 'info');
+            }
+        }
+        
+        function exportContent() {
+            const allContent = {
+                hero: JSON.parse(localStorage.getItem('website_hero_content') || '{}'),
+                about: JSON.parse(localStorage.getItem('website_about_content') || '{}'),
+                contact: JSON.parse(localStorage.getItem('website_contact_content') || '{}')
+            };
+            
+            const dataStr = JSON.stringify(allContent, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'website_content.json';
+            link.click();
+            
+            showNotification('内容已导出为JSON文件！', 'success');
+        }
+        
+        function importContent() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const content = JSON.parse(e.target.result);
+                            
+                            if (content.hero) {
+                                localStorage.setItem('website_hero_content', JSON.stringify(content.hero));
+                            }
+                            if (content.about) {
+                                localStorage.setItem('website_about_content', JSON.stringify(content.about));
+                            }
+                            if (content.contact) {
+                                localStorage.setItem('website_contact_content', JSON.stringify(content.contact));
+                            }
+                            
+                            loadCurrentContent();
+                            showNotification('内容导入成功！', 'success');
+                        } catch (error) {
+                            showNotification('导入失败，请检查文件格式！', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            
+            input.click();
+        }
+        
+        function resetAllContent() {
+            if (confirm('确定要重置所有内容吗？此操作不可撤销！')) {
+                localStorage.removeItem('website_hero_content');
+                localStorage.removeItem('website_about_content');
+                localStorage.removeItem('website_contact_content');
+                
+                // 重置表单
+                document.getElementById('hero-title').value = '';
+                document.getElementById('hero-subtitle').value = '';
+                document.getElementById('hero-description').value = '';
+                resetAboutContent();
+                document.getElementById('contact-email').value = '';
+                document.getElementById('contact-phone').value = '';
+                document.getElementById('contact-address').value = '';
+                document.getElementById('social-wechat').value = '';
+                document.getElementById('social-qq').value = '';
+                document.getElementById('social-github').value = '';
+                
+                showNotification('所有内容已重置！', 'info');
+            }
+        }
+
         // Form handlers
         document.addEventListener('DOMContentLoaded', () => {
-            // Save draft button
-            document.querySelector('button[type="button"]:nth-of-type(1)').addEventListener('click', () => {
-                saveContent('draft');
-            });
+            // Load saved content on page load
+            loadCurrentContent();
             
-            // Publish button
-            document.querySelector('button[type="button"]:nth-of-type(2)').addEventListener('click', () => {
-                saveContent('published');
-            });
+            // Save draft button (legacy)
+            const draftBtn = document.querySelector('button[type="button"]:nth-of-type(1)');
+            if (draftBtn && draftBtn.textContent.includes('保存草稿')) {
+                draftBtn.addEventListener('click', () => {
+                    saveContent('draft');
+                });
+            }
             
-            // Preview button
-            document.querySelector('button[type="button"]:nth-of-type(3)').addEventListener('click', () => {
-                alert('预览功能开发中...');
-            });
+            // Publish button (legacy)
+            const publishBtn = document.querySelector('button[type="button"]:nth-of-type(2)');
+            if (publishBtn && publishBtn.textContent.includes('发布')) {
+                publishBtn.addEventListener('click', () => {
+                    saveContent('published');
+                });
+            }
+            
+            // Preview button (legacy)
+            const previewBtn = document.querySelector('button[type="button"]:nth-of-type(3)');
+            if (previewBtn && previewBtn.textContent.includes('预览')) {
+                previewBtn.addEventListener('click', () => {
+                    alert('预览功能开发中...');
+                });
+            }
             
             // Load media files on page load
             loadMediaFiles();

@@ -1518,6 +1518,214 @@
         }
     </script>
     
+    <!-- 编辑模式浮动按钮 -->
+    <div id="editModeToggle" class="fixed bottom-6 right-6 z-50">
+        <button id="editBtn" class="bg-apple-blue text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-110">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- 编辑模式提示 -->
+    <div id="editModeIndicator" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-2 rounded-full shadow-lg z-50 hidden">
+        <span class="flex items-center gap-2">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            编辑模式已开启 - 点击文本进行编辑
+        </span>
+    </div>
+
+    <!-- 编辑功能JavaScript -->
+    <script>
+        let editMode = false;
+        let originalContent = {};
+        
+        // 编辑模式切换
+        document.getElementById('editBtn').addEventListener('click', function() {
+            editMode = !editMode;
+            const indicator = document.getElementById('editModeIndicator');
+            const btn = document.getElementById('editBtn');
+            
+            if (editMode) {
+                indicator.classList.remove('hidden');
+                btn.style.backgroundColor = '#ef4444';
+                btn.innerHTML = `
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                `;
+                enableEditMode();
+            } else {
+                indicator.classList.add('hidden');
+                btn.style.backgroundColor = '#3b82f6';
+                btn.innerHTML = `
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                `;
+                disableEditMode();
+                saveChanges();
+            }
+        });
+        
+        function enableEditMode() {
+            // 使所有文本元素可编辑
+            const editableElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, a, button');
+            
+            editableElements.forEach((element, index) => {
+                // 跳过导航和脚本相关元素
+                if (element.closest('nav') || element.closest('script') || element.closest('#editModeToggle') || element.closest('#editModeIndicator')) {
+                    return;
+                }
+                
+                const elementId = `editable-${index}`;
+                element.setAttribute('data-edit-id', elementId);
+                originalContent[elementId] = element.innerHTML;
+                
+                element.style.cursor = 'pointer';
+                element.style.outline = '2px dashed transparent';
+                element.style.transition = 'all 0.3s ease';
+                
+                element.addEventListener('mouseenter', function() {
+                    if (editMode) {
+                        this.style.outline = '2px dashed #3b82f6';
+                        this.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+                    }
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    if (editMode && !this.isContentEditable) {
+                        this.style.outline = '2px dashed transparent';
+                        this.style.backgroundColor = 'transparent';
+                    }
+                });
+                
+                element.addEventListener('click', function(e) {
+                    if (editMode) {
+                        e.preventDefault();
+                        makeEditable(this);
+                    }
+                });
+            });
+        }
+        
+        function makeEditable(element) {
+            element.contentEditable = true;
+            element.focus();
+            element.style.outline = '2px solid #3b82f6';
+            element.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+            
+            // 选中所有文本
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            element.addEventListener('blur', function() {
+                this.contentEditable = false;
+                this.style.outline = '2px dashed transparent';
+                this.style.backgroundColor = 'transparent';
+            }, { once: true });
+            
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.blur();
+                }
+            });
+        }
+        
+        function disableEditMode() {
+            const editableElements = document.querySelectorAll('[data-edit-id]');
+            
+            editableElements.forEach(element => {
+                element.style.cursor = 'default';
+                element.style.outline = 'none';
+                element.style.backgroundColor = 'transparent';
+                element.contentEditable = false;
+                
+                // 移除事件监听器
+                element.replaceWith(element.cloneNode(true));
+            });
+        }
+        
+        function saveChanges() {
+            const changes = {};
+            const editableElements = document.querySelectorAll('[data-edit-id]');
+            
+            editableElements.forEach(element => {
+                const elementId = element.getAttribute('data-edit-id');
+                const currentContent = element.innerHTML;
+                
+                if (originalContent[elementId] !== currentContent) {
+                    changes[elementId] = {
+                        original: originalContent[elementId],
+                        new: currentContent
+                    };
+                }
+            });
+            
+            if (Object.keys(changes).length > 0) {
+                // 保存到localStorage
+                const savedChanges = JSON.parse(localStorage.getItem('websiteChanges') || '{}');
+                Object.assign(savedChanges, changes);
+                localStorage.setItem('websiteChanges', JSON.stringify(savedChanges));
+                
+                // 显示保存成功提示
+                showNotification('更改已保存！', 'success');
+                
+                console.log('保存的更改:', changes);
+            }
+        }
+        
+        function loadSavedChanges() {
+            const savedChanges = JSON.parse(localStorage.getItem('websiteChanges') || '{}');
+            
+            Object.keys(savedChanges).forEach(elementId => {
+                const element = document.querySelector(`[data-edit-id="${elementId}"]`);
+                if (element) {
+                    element.innerHTML = savedChanges[elementId].new;
+                }
+            });
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 text-white ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // 页面加载时恢复保存的更改
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(loadSavedChanges, 100);
+        });
+        
+        // 添加重置功能
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+                e.preventDefault();
+                if (confirm('确定要重置所有更改吗？这将恢复网站的原始内容。')) {
+                    localStorage.removeItem('websiteChanges');
+                    location.reload();
+                }
+            }
+        });
+    </script>
+
     <!-- Load cloud services -->
     <script type="module">
         import cdnManager from './src/utils/cdn.js';
